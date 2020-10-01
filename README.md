@@ -1,3 +1,3 @@
 # StudentTrackingSystem
 
-#NO BUG NO LIFE
+#Team: NO BUG NO LIFE
