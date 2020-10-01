@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="main.css">
     <base target="_top">
   </head>
   <body>
-    hello world
+    <h1>Student Tracking System</h1>
+    <h2>No Bug No Life</h2>
+    
+    <button id = "btn"></button>
+    <script>
+      document.getElementById("btn").addEveneListener("click", dosomething);
+      function dosomething(){
+        google.run.script.userClicked();
+      }
+    </script>
   </body>
 </html>
 
