@@ -7,13 +7,12 @@
     var table_div = document.getElementById("tb");
     
     var table = document.createElement("table");
-//    table.style.class = "table-dark";
+    table.className = "table table-striped";
     
     var table_header_row = document.createElement("tr");
     
     for(var i = 0; i < data[0].length; i++){
       var header = document.createElement("th");
-//      header.style.scope = "col";
       header.textContent = data[0][i];
       table_header_row.appendChild(header);
     }
