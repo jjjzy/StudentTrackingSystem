@@ -9,7 +9,7 @@ function importCSVFromGoogleDrive() {
   var rows = ss.getLastRow();
   var cols = ss.getLastColumn();
   
-  var data = ss.getRange(1, 1, ss.getLastRow(), 4).getValues();
+  var data = ss.getRange(1, 1, rows, cols).getValues();
   Logger.log(data);
   return data;
 }
