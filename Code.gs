@@ -4,7 +4,7 @@ function doGet(request) {
 }
 
 function importCSVFromGoogleDrive() {
-  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1IRmvCBdmLH6Y289tsk5StSEq4iGXgyznZtQ8u2IPssM/edit#gid=0").getSheetByName("current_student");
+  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0").getSheetByName("MCS_MENG");
 
   var rows = ss.getLastRow();
   var cols = ss.getLastColumn();

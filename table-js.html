@@ -7,9 +7,10 @@
     var table_div = document.getElementById("tb");
     
     var table = document.createElement("table");
-    table.className = "table table-striped";
+    
     
     var table_header_row = document.createElement("tr");
+    table_header_row.setAttribute("class", "thead-light");
     
     for(var i = 0; i < data[0].length; i++){
       var header = document.createElement("th");
@@ -37,6 +38,7 @@
     });
     
     table_div.appendChild(table);
+    table.setAttribute("class", "table table-sm table-striped");
   }
 
 </script>
