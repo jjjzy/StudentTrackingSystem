@@ -13,13 +13,14 @@
     <h2>No Bug No Life</h2>
     
     <form action="/action_page.php">
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
+      <input type="text" placeholder="Search.." name="searchbar">
+      <button type="submit" class="fa fa-search">search</button>
     </form>
     
     <div id = "tb">
     </div>
-
+    <a href="#" class="previous">&laquo; Previous</a>
+    <a href="#" class="next">Next &raquo;</a>
     <?!= include('table-js'); ?>
 
   </body>

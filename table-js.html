@@ -22,6 +22,11 @@
     table_div.appendChild(table);
     
     var num_rows = data.length;
+    
+    var data_header = data[0];
+    
+    var possiblepdf = ["Degree Plan","finalreport....."]
+    
     data.splice(0, 1);
   
     data.forEach(function(rows){
@@ -29,7 +34,12 @@
       
       for(var i = 0; i < data[0].length; i++){
         var table_data = document.createElement("td");
-        table_data.textContent = rows[i];
+        if(possiblepdf.includes(data_header[i]) && rows[i]!="NA"){
+          table_data.innerHTML = '<a href="' + rows[i] + '">' + rows[i] + '</a>';
+        }
+        else{
+          table_data.textContent = rows[i];
+        }
         row.appendChild(table_data);
         
       }
