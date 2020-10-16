@@ -81,7 +81,7 @@
       for(var i = 0; i < data[0].length; i++){
         var table_data = document.createElement("td");
         if(possiblepdf.includes(data_header[i]) && rows[i]!="NA"){
-          table_data.innerHTML = '<a href="' + rows[i] + '">' + rows[i] + '</a>';
+          table_data.innerHTML = '<a href="' + rows[i] + '">' + links + '</a>';
         }
         else{
           table_data.textContent = rows[i];
