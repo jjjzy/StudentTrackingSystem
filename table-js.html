@@ -1,13 +1,30 @@
 <script>
+  var url = "https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0";
+  var index = 0;
+  
   document.addEventListener("DOMContentLoaded", function(){
-    google.script.run.withSuccessHandler(generate_table).importCSVFromGoogleDrive();
+    google.script.run.withSuccessHandler(generate_table).importCSVFromGoogleDrive(url, index);
+  });
+  
+  var switch_button = document.getElementById("switch_table");
+  
+//  switch_button.textContent = google.script.run.getSheetNames(url)[index];
+  console.log("the sheet name");
+  var names = google.script.run.getSheetNames(url);
+  console.log(names[1]);
+  switch_button.addEventListener("click", function(){
+    document.getElementById("tb").innerHTML = "";
+    index += 1;
+    if(index >= 2){
+      index = 0;
+    }
+    google.script.run.withSuccessHandler(generate_table).importCSVFromGoogleDrive(url, index);
   });
 
   function generate_table(data){
     var table_div = document.getElementById("tb");
     
     var table = document.createElement("table");
-    
     
     var table_header_row = document.createElement("tr");
     table_header_row.setAttribute("class", "thead-light");
