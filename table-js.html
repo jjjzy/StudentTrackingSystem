@@ -13,7 +13,7 @@
 //  var names = google.script.run.getSheetNames(url);
 //  console.log(names[1]);
   switch_button.addEventListener("click", function(){
-    document.getElementById("tb").innerHTML = "";
+    document.getElementById("table").innerHTML = "";
     index += 1;
     if(index >= 2){
       index = 0;
@@ -24,7 +24,9 @@
   function generate_table(data){
     var table_div = document.getElementById("tb");
     
-    var table = document.createElement("table");
+//    var table = document.createElement("table");
+    
+    var table = document.getElementById("table");
     
     var table_header_row = document.createElement("tr");
     table_header_row.setAttribute("class", "thead-light");
@@ -36,7 +38,7 @@
     }
     
     table.appendChild(table_header_row);
-    table_div.appendChild(table);
+//    table_div.appendChild(table);
     
     var num_rows = data.length;
     
@@ -93,7 +95,7 @@
       
     });
     
-    table_div.appendChild(table);
+//    table_div.appendChild(table);
     table.setAttribute("class", "table table-sm table-striped");
   }
 
