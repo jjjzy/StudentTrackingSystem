@@ -24,8 +24,6 @@
   function generate_table(data){
     var table_div = document.getElementById("tb");
     
-//    var table = document.createElement("table");
-    
     var table = document.getElementById("table");
     
     var table_header_row = document.createElement("tr");
@@ -38,7 +36,6 @@
     }
     
     table.appendChild(table_header_row);
-//    table_div.appendChild(table);
     
     var num_rows = data.length;
     
@@ -95,8 +92,8 @@
       
     });
     
-//    table_div.appendChild(table);
     table.setAttribute("class", "table table-sm table-striped");
   }
+  
 
 </script>

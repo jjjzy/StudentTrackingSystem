@@ -15,12 +15,11 @@
     <button type="button" id="switch_table">switch to another table</button>
     
     <form>
-      <input type="text" placeholder="firstname" name="searchbar1">
-      <input type="text" placeholder="lastname" name="searchbar2">
-      <input type="text" placeholder="UIN" name="searchbar3">
-      <button type="submit" class="fa fa-search">search</button>
+      <input type="text" placeholder="firstname" onkeyup="seach_by_first_name()" id="FNsearch">
+      <input type="text" placeholder="lastname" onkeyup="seach_by_last_name()" id="LNsearch">
+      <input type="text" placeholder="UIN" onkeyup="seach_by_uin()" id="UINsearch">
     </form>
-    
+
     <div id = "tb">
       <table id="table">
       </table>
@@ -34,7 +33,7 @@
     <a href="#" class="previous">&laquo; Previous</a>
     <a href="#" class="next">Next &raquo;</a>
     <?!= include('table-js'); ?>
-
+    <?!= include('search-js'); ?>
   </body>
 </html>
 

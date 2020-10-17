@@ -1,0 +1,61 @@
+<script>
+  function seach_by_first_name() {
+    var td, txtValue;
+    var input = document.getElementById("FNsearch");
+    var filter = input.value.toUpperCase();
+    var table = document.getElementById("table");
+    var tr = table.getElementsByTagName("tr");
+    for (var i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        }
+        else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+  
+  function seach_by_last_name() {
+    var td, txtValue;
+    var input = document.getElementById("LNsearch");
+    var filter = input.value.toUpperCase();
+    var table = document.getElementById("table");
+    var tr = table.getElementsByTagName("tr");
+    for (var i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        }
+        else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+  
+  function seach_by_uin() {
+    var td, txtValue;
+    var input = document.getElementById("UINsearch");
+    var filter = input.value.toUpperCase();
+    var table = document.getElementById("table");
+    var tr = table.getElementsByTagName("tr");
+    for (var i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[2];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        }
+        else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+</script>
