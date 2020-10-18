@@ -41,7 +41,7 @@
     
     var data_header = data[0];
     
-    var possiblepdf = ["Degree Plan","finalreport....."]
+    var possiblepdf = ["DocumentLink","DocumentLink"]
     
     data.splice(0, 1);
   
@@ -70,6 +70,12 @@
         modal.style.display = "block";
       });
       
+      var span = document.getElementsByClassName("close")[0];
+      span.onclick = function() {
+        modal.style.display = "none";
+        modal_content.innerHTML = "";
+      }
+      
       window.onclick = function(event) {
         if (event.target == modal) {
           modal.style.display = "none";
@@ -80,7 +86,7 @@
       for(var i = 0; i < data[0].length; i++){
         var table_data = document.createElement("td");
         if(possiblepdf.includes(data_header[i]) && rows[i]!="NA"){
-          table_data.innerHTML = '<a href="' + rows[i] + '">' + links + '</a>';
+          table_data.innerHTML = '<a href="' + rows[i] + '">' + "Link" + '</a>';
         }
         else{
           table_data.textContent = rows[i];
@@ -92,7 +98,7 @@
       
     });
     
-    table.setAttribute("class", "table table-sm table-striped");
+    table.setAttribute("class", "table table-bordered");
   }
   
 
