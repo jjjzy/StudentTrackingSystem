@@ -63,25 +63,13 @@
           var h = document.createElement("H3");
           h.style.textAlign = "center";
           var t = document.createTextNode(data_header[i] + ":   " + rows[i]);
-//          t.setAttribute("id", "democlass");
           h.appendChild(t);
           modal_content.appendChild(h);
           
         }
         
         google.script.run.withSuccessHandler(onSuccess).is_folder_exist(rows[0], rows[1]);
-        
-//        google.script.run.is_folder_exist(rows[0], rows[1]);
-//        console.log(rows[0] + rows[1]);
-//        console.log(folder_exist);
-//        if(folder_exist == false){
-//          console.log("inside");
-//          var button = document.createElement("button");
-//          button.innerHTML = "add this student's folder";
-//        
-//          modal_content.appendChild(button);
-//        }
-        
+
         var btn = document.createElement("BUTTON");
         btn.innerHTML = "Edit";
         btn.style.width = '200px';
@@ -124,17 +112,13 @@
   function onSuccess(exist){
     var modal_content = document.getElementById("modal-content");
     if(exist == false){
-//      console.log("inside");
       var button = document.createElement("button");
       button.innerHTML = "add this student's folder";
       
       var group = modal_content.getElementsByTagName("H3")[0];
       var first_name = String(group.innerHTML).split(":   ")[1];
-//       document.getElementById("demo").innerHTML = res[1];
       var group = modal_content.getElementsByTagName("H3")[1];
       var last_name = String(group.innerHTML).split(":   ")[1];
-//      console.log("group" + group.innerHTML);
-//      console.log(first_name + last_name);
       
       var supposed_name = first_name + '_' + last_name;
       
@@ -146,8 +130,4 @@
       modal_content.appendChild(button);
     }
   }
-  
-//  function onSuccess_button(name)
-  
-
 </script>
