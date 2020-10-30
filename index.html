@@ -38,13 +38,31 @@
     
     <div class="form-popup" id="myForm">
       <form class="form-container">
+        <label for="uin"><b>UIN</b></label>
+        <input type="text" placeholder="Enter UIN" id="uin" required>
+
+        <label for="last_name"><b>Last Name</b></label>
+        <input type="text" placeholder="Enter Last Name" id="last_name" required>
+        
+        <label for="first_name"><b>First Name</b></label>
+        <input type="text" placeholder="Enter First Name" id="first_name" required>
+        
         <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
+        <input type="text" placeholder="Enter Email" id="email" required>
+        
+        <label for="degree"><b>Degree</b></label>
+        <input type="text" placeholder="Enter Degree" id="degree" required>
+        
+        <label for="start_semester"><b>Start Semester</b></label>
+        <input type="text" placeholder="Enter Start Semester" id="start_semester" required>
+        
+        <label for="advisor1"><b>Advisor1</b></label>
+        <input type="text" placeholder="Enter Advisor1" id="advisor1" required>
+        
+        <label for="advisor2"><b>Advisor2</b></label>
+        <input type="text" placeholder="Enter Advisor2" id="advisor2" required>
 
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-
-        <button type="submit" class="btn">Login</button>
+        <button type="button" class="btn" onclick="add_students()">add a student</button>
         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
       </form>
     </div>

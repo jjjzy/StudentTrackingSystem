@@ -6,4 +6,29 @@
   function closeForm() {
     document.getElementById("myForm").style.display = "none";
   }
+  
+  function add_students(){
+    var UIN = document.getElementById("uin").value;
+    var last_name = document.getElementById("last_name").value;
+    var first_name = document.getElementById("first_name").value;
+    var email = document.getElementById("email").value;
+    var start_semester = document.getElementById("start_semester").value;
+    var degree = document.getElementById("degree").value;
+    var advisor1 = document.getElementById("advisor1").value;
+    var advisor2 = document.getElementById("advisor2").value;
+    
+    var data = [
+      UIN,
+      last_name,
+      first_name,
+      email,
+      start_semester,
+      degree,
+      advisor1,
+      advisor2
+    ]
+
+    google.script.run.add_student(data);
+    google.script.run.create_folder(first_name, last_name);
+  }
 </script>
