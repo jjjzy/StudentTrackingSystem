@@ -106,7 +106,7 @@
       
       for(var i = 0; i < data[0].length; i++){
         var table_data = document.createElement("td");
-        if(possiblepdf.includes(data_header[i])){
+        if(i == data[0].length - 1){
           if(rows[i] == "" || rows[i] == " "){
             table_data.innerHTML = "no links to folder";
           }
