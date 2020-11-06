@@ -29,12 +29,14 @@
     
     console.log(link_index);
     
-    for(var i = 0; i < data.length; i++){
-      if(data[i][link_index] == " " || data[i][link_index] == ""){
-        console.log(data[i][first_name_index] + data[i][last_name_index] + data[i][uin_index]);
-        google.script.run.alll(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
-      }
-    }
+//    for(var i = 0; i < data.length; i++){
+//      if(data[i][link_index] == " " || data[i][link_index] == ""){
+//        console.log(data[i][first_name_index] + data[i][last_name_index] + data[i][uin_index]);
+//        google.script.run.alll(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
+//      }
+//    }
+
+    google.script.run.test(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
   }
   
   var j = 0;
