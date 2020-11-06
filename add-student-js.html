@@ -1,6 +1,6 @@
 <script>
   document.addEventListener("DOMContentLoaded", function(){
-    google.script.run.withSuccessHandler(generate_add_student_form).getTableHeader("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0", 0);
+    google.script.run.withSuccessHandler(generate_add_student_form).getTableHeader("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
   });
 
 
@@ -143,7 +143,7 @@
     add_btn.setAttribute("type", "button");
 //    add_btn.setAttribute("onclick", "add_a_student()");
     add_btn.addEventListener("click", function(){
-      google.script.run.withSuccessHandler(add_students).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0", 0);
+      google.script.run.withSuccessHandler(add_students).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
     });
     var t = document.createTextNode("add a student");
     add_btn.appendChild(t);

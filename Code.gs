@@ -33,7 +33,7 @@ function include(filename) {
 }
 
 function is_folder_exist(first_name, last_name, uin){
-  var folders = DriveApp.getFolderById("1dyXUX5S09iN60V_qt-l8iFVcsTmFlXtU").getFolders();
+  var folders = DriveApp.getFolderById("1NB26J5C-iLoyygB17APYlc0PLn9sQGIJ").getFolders();
 
   var assumed_folder_name = first_name + '_' + last_name + '_' + uin;
 
@@ -50,13 +50,13 @@ function create_folder(first_name, last_name, uin){
 //  first_name = "tom";
 //  last_name = "tom";
 //  uin = "tom";
-  var folders = DriveApp.getFolderById("1dyXUX5S09iN60V_qt-l8iFVcsTmFlXtU");
+  var folders = DriveApp.getFolderById("1NB26J5C-iLoyygB17APYlc0PLn9sQGIJ");
   var assumed_folder_name = first_name + '_' + last_name + '_' + uin;
   var newFolder = folders.createFolder(assumed_folder_name);
 }
 
 function get_folder_name(first_name, last_name, uin){
-  var folders = DriveApp.getFolderById("1dyXUX5S09iN60V_qt-l8iFVcsTmFlXtU").getFolders();
+  var folders = DriveApp.getFolderById("1NB26J5C-iLoyygB17APYlc0PLn9sQGIJ").getFolders();
 
   var assumed_folder_name = first_name + '_' + last_name + '_' + uin;
 
@@ -75,7 +75,7 @@ function add_student(data, first_name, last_name, uin){
 //  first_name = "tom";
 //  last_name = "tom";
 //  uin = "tom";
-  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0").getSheets()[0];
+  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0").getSheets()[0];
   
 //  if(is_folder_exist(first_name, last_name, uin)){
 //    var folder_link = get_folder_name(first_name, last_name, uin);
@@ -96,7 +96,7 @@ function add_student(data, first_name, last_name, uin){
 }
 
 function give_folder_and_link_to_a_student(first_name, last_name, uin){
-  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0").getSheets()[0];
+  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0").getSheets()[0];
 
   var rows = ss.getLastRow();
   var cols = ss.getLastColumn();
@@ -147,11 +147,11 @@ function give_folder_and_link_to_a_student(first_name, last_name, uin){
 
 
 function all(first_name, last_name, uin){
-  var folders = DriveApp.getFolderById("1dyXUX5S09iN60V_qt-l8iFVcsTmFlXtU");
+  var folders = DriveApp.getFolderById("1NB26J5C-iLoyygB17APYlc0PLn9sQGIJ");
   var assumed_folder_name = first_name + '_' + last_name + '_' + uin;
   var newFolder = folders.createFolder(assumed_folder_name);
   
-  var folders = DriveApp.getFolderById("1dyXUX5S09iN60V_qt-l8iFVcsTmFlXtU").getFolders();
+  var folders = DriveApp.getFolderById("1NB26J5C-iLoyygB17APYlc0PLn9sQGIJ").getFolders();
 
   var url;
   while (folders.hasNext()) {
@@ -161,7 +161,7 @@ function all(first_name, last_name, uin){
     }
   }
 
-  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0").getSheets()[0];
+  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0").getSheets()[0];
 
   var rows = ss.getLastRow();
   var cols = ss.getLastColumn();
@@ -201,11 +201,16 @@ function all(first_name, last_name, uin){
 }
 
 function add_student_and_append_link(data, first_name, last_name, uin){
-  var folders = DriveApp.getFolderById("1dyXUX5S09iN60V_qt-l8iFVcsTmFlXtU");
+  var folders = DriveApp.getFolderById("1NB26J5C-iLoyygB17APYlc0PLn9sQGIJ");
   var assumed_folder_name = first_name + '_' + last_name + '_' + uin;
   var newFolder = folders.createFolder(assumed_folder_name);
   
-  var folders = DriveApp.getFolderById("1dyXUX5S09iN60V_qt-l8iFVcsTmFlXtU").getFolders();
+  newFolder.createFolder("Advising Notes");
+  newFolder.createFolder("Application");
+  newFolder.createFolder("Degree Documents");
+  newFolder.createFolder("ISS Documents");
+  
+  var folders = DriveApp.getFolderById("1NB26J5C-iLoyygB17APYlc0PLn9sQGIJ").getFolders();
 
   var url;
   while (folders.hasNext()) {
@@ -215,7 +220,7 @@ function add_student_and_append_link(data, first_name, last_name, uin){
     }
   }
 
-  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0").getSheets()[0];
+  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0").getSheets()[0];
   
   data.push(url);
   
@@ -229,11 +234,16 @@ function add_student_and_append_link(data, first_name, last_name, uin){
 
 function alll(first_name, last_name, uin){
 //  Utilities.sleep(100000);
-  var folder = DriveApp.getFolderById("1dyXUX5S09iN60V_qt-l8iFVcsTmFlXtU");
+  var folder = DriveApp.getFolderById("1NB26J5C-iLoyygB17APYlc0PLn9sQGIJ");
   var assumed_folder_name = first_name + '_' + last_name + '_' + uin;
-  folder.createFolder(assumed_folder_name);
+  var newFolder = folder.createFolder(assumed_folder_name);
   
-  var folders = DriveApp.getFolderById("1dyXUX5S09iN60V_qt-l8iFVcsTmFlXtU").getFolders();
+  newFolder.createFolder("Advising Notes");
+  newFolder.createFolder("Application");
+  newFolder.createFolder("Degree Documents");
+  newFolder.createFolder("ISS Documents");
+  
+  var folders = DriveApp.getFolderById("1NB26J5C-iLoyygB17APYlc0PLn9sQGIJ").getFolders();
 
   var url;
   while (folders.hasNext()) {
@@ -243,7 +253,7 @@ function alll(first_name, last_name, uin){
     }
   }
 
-  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0").getSheets()[0];
+  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0").getSheets()[0];
 
   var rows = ss.getLastRow();
   var cols = ss.getLastColumn();
@@ -291,7 +301,7 @@ function alll(first_name, last_name, uin){
 }
 
 function test(first_name, last_name, uin){
-  var data = importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0", 0);
+  var data = importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
   var link_index = data[0].length - 1;
     var first_name_index, last_name_index, uin_index;
     
