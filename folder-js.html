@@ -1,4 +1,104 @@
 <script>
- 
+  function give_folders(){
+    google.script.run.withSuccessHandler(give_students_who_doesnt_have_folder_folder).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0", 0);
+  }
+  
+  
+  var datax;
+  var link_index;
+  var first_name_index, last_name_index, uin_index;
+  var j;
+  
+  function give_students_who_doesnt_have_folder_folder(data){
+    datax = data;
+//  console.log("inside");
+    var link_index = data[0].length - 1;
+    var first_name_index, last_name_index, uin_index;
+    
+    for(var i = 0; i < data[0].length; i++){
+      if(data[0][i].includes("First") || data[0][i].includes("first") || data[0][i].includes("FIRST")){
+        first_name_index = i;
+      }
+      
+      if(data[0][i].includes("Last") || data[0][i].includes("last") || data[0][i].includes("LAST")){
+        last_name_index = i;
+      }
+      
+      if(data[0][i].includes("uin") || data[0][i].includes("Uin") || data[0][i].includes("UIN")){
+        uin_index = i;
+      }
+    }
+    
+    console.log(link_index);
+    
+    for(var i = 0; i < data.length; i++){
+      if(data[i][link_index] == " " || data[i][link_index] == ""){
+        console.log(i);
+//        google.script.run.create_folder(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
+//        
+//        
+//        
+//        google.script.run.give_folder_and_link_to_a_student(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
+
+//        google.script.run.alll(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
+//        await sleep(1000)
+        google.script.run.withSuccessHandler(function(folder_exist){
+          while(folder_exist == false){
+            google.script.run.alll(datax[j][first_name_index], datax[j][last_name_index], datax[j][uin_index]);
+          }
+  }).is_folder_exist(datax[j][first_name_index], datax[j][last_name_index], datax[j][uin_index]);
+        
+        
+//        google.script.run.withSuccessHandler(function(folder_exist){
+//          while(!folder_exist){
+//            
+//          }
+//        }).is_folder_exist(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
+      }
+    }
+  }
+  
+  function temp(data){
+    datax = data;
+//  console.log("inside");
+    link_index = data[0].length - 1;
+    first_name_index, last_name_index, uin_index;
+    
+    for(var j = 0; i < data[0].length; i++){
+      if(data[0][i].includes("First") || data[0][i].includes("first") || data[0][i].includes("FIRST")){
+        first_name_index = i;
+      }
+      
+      if(data[0][i].includes("Last") || data[0][i].includes("last") || data[0][i].includes("LAST")){
+        last_name_index = i;
+      }
+      
+      if(data[0][i].includes("uin") || data[0][i].includes("Uin") || data[0][i].includes("UIN")){
+        uin_index = i;
+      }
+    }
+    
+    console.log(link_index);
+    
+    for(var i = 0; i < data.length; i++){
+      if(data[i][link_index] == " " || data[i][link_index] == ""){
+//        google.script.run.alll(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
+
+        google.script.run.withSuccessHandler(function(folder_exist){
+          while(folder_exist == false){
+            google.script.run.alll(datax[j][first_name_index], datax[j][last_name_index], datax[j][uin_index]);
+          }
+  }).is_folder_exist(datax[j][first_name_index], datax[j][last_name_index], datax[j][uin_index]);
+
+      }
+    }
+  
+  }
+  
+  
+  
+  
+  
+  
 </script>
 

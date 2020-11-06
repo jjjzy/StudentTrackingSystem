@@ -1,4 +1,10 @@
 <script>
+  document.addEventListener("DOMContentLoaded", function(){
+    google.script.run.withSuccessHandler(generate_add_student_form).getTableHeader("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0", 0);
+  });
+
+
+
   function openForm() {
     document.getElementById("myForm").style.display = "block";
   }
@@ -7,28 +13,144 @@
     document.getElementById("myForm").style.display = "none";
   }
   
-  function add_students(){
-    var UIN = document.getElementById("uin").value;
-    var last_name = document.getElementById("last_name").value;
-    var first_name = document.getElementById("first_name").value;
-    var email = document.getElementById("email").value;
-    var start_semester = document.getElementById("start_semester").value;
-    var degree = document.getElementById("degree").value;
-    var advisor1 = document.getElementById("advisor1").value;
-    var advisor2 = document.getElementById("advisor2").value;
+//  function add_a_student(){
+//    google.script.run.withSuccessHandler(add_students).getTableHeader("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0", 0);
+//  }
+  
+  function add_students(data_header){
+    var input_data = document.getElementById("add_form").getElementsByTagName("input");
+  
+  
+//    console.log(input_data.length);
     
-    var data = [
-      UIN,
-      last_name,
-      first_name,
-      email,
-      start_semester,
-      degree,
-      advisor1,
-      advisor2
-    ]
+    var data = [];
+    
+    for(var i = 0; i < input_data.length; i++){
+      data[i] = input_data[i].value;
+    }
+  
+  
+//    var UIN = document.getElementById("uin").value;
+//    var last_name = document.getElementById("last_name").value;
+//    var first_name = document.getElementById("first_name").value;
+//    var email = document.getElementById("email").value;
+//    var start_semester = document.getElementById("start_semester").value;
+//    var degree = document.getElementById("degree").value;
+//    var advisor1 = document.getElementById("advisor1").value;
+//    var advisor2 = document.getElementById("advisor2").value;
+//    
+//    var data = [
+//      UIN,
+//      last_name,
+//      first_name,
+//      email,
+//      start_semester,
+//      degree,
+//      advisor1,
+//      advisor2
+//    ]
+//
 
-    google.script.run.add_student(data);
-    google.script.run.create_folder(first_name, last_name, UIN);
+
+    var first_name, last_name, UIN;
+    
+    for(var i = 0; i < input_data.length; i++){
+//      data[i] = input_data[i].value;
+      if(String(data_header[i]).includes("First") || (String(data_header[i]).includes("first")) || (String(data_header[i]).includes("FIRST"))){
+        first_name = input_data[i].value
+      }
+      
+      if(String(data_header[i]).includes("Last") || (String(data_header[i]).includes("last")) || (String(data_header[i]).includes("LAST"))){
+        last_name = input_data[i].value
+      }
+      
+      if(String(data_header[i]).includes("uin") || (String(data_header[i]).includes("Uin")) || (String(data_header[i]).includes("UIN"))){
+        UIN = input_data[i].value
+      }
+    }
+    
+    google.script.run.add_student_and_append_link(data, first_name, last_name, UIN);
+    
+//    console.log(first_name + last_name + UIN);
+    
+//    google.script.run.create_folder(first_name, last_name, UIN);
+    
+//    async function firstFunction(first_name, last_name, UIN){
+//      google.script.run.create_folder(first_name, last_name, UIN);
+//      return;
+//    };
+//
+//    async function secondFunction(data, first_name, last_name, UIN){
+//      await firstFunction();
+//      // now wait for firstFunction to finish...
+//      // do something else
+//      google.script.run.add_student(data, first_name, last_name, UIN);
+//    };
+//    
+//    firstFunction(first_name, last_name, UIN);
+//    secondFunction(data, first_name, last_name, UIN);
+    
+//    google.script.run.withSuccessHandler(function(successfully_created){
+//      data
+//      console.log(res);
+//    }).get_folder_name(first_name, last_name, UIN);
+    
+//    google.script.run.add_student(data, first_name, last_name, UIN);
+//    google.script.run.create_folder(first_name, last_name, UIN);
+    
+//    google.script.run.withSuccessHandler(function(res){
+//      data
+//      console.log(res);
+//    }).get_folder_name(first_name, last_name, UIN);
+
+    closeForm();
+  }
+  
+  function generate_add_student_form(data_header){
+    var add_form = document.getElementById("add_form");
+    
+    for(var i = 0; i < data_header.length - 1; i++){
+//      <label for="uin"><b>UIN</b></label>
+//      <input type="text" placeholder="Enter UIN" id="uin" required>
+      var input_label = document.createElement("label");
+      var t = document.createTextNode(data_header[i]);
+      input_label.appendChild(t);
+      add_form.appendChild(input_label);
+      
+      var input = document.createElement("input");
+      var place_holder = "Enter " + data_header[i];
+      input.setAttribute("placeholder", place_holder);
+      input.setAttribute("type", "text");
+      input.setAttribute("id", data_header[i]);
+      add_form.appendChild(input);
+    }
+    
+//    <button type="button" class="btn" onclick="add_students()">add a student</button>
+//        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+
+    var add_btn = document.createElement("button");
+    add_btn.setAttribute("class", "btn");
+    add_btn.setAttribute("type", "button");
+//    add_btn.setAttribute("onclick", "add_a_student()");
+    add_btn.addEventListener("click", function(){
+      google.script.run.withSuccessHandler(add_students).getTableHeader("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0", 0);
+    });
+    var t = document.createTextNode("add a student");
+    add_btn.appendChild(t);
+    add_form.appendChild(add_btn);
+    
+    var close_btn = document.createElement("button");
+    close_btn.setAttribute("class", "btn cancel");
+    close_btn.setAttribute("type", "button");
+    close_btn.setAttribute("onclick", "closeForm()");
+//    add_btn.addEventListener("click", function(){
+//      google.script.run.withSuccessHandler(add_students).getTableHeader("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0", 0);
+//    });
+    t = document.createTextNode("Close");
+    close_btn.appendChild(t);
+    add_form.appendChild(close_btn);
+    
+    
+    
   }
 </script>

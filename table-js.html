@@ -59,6 +59,7 @@
       var modal_content = document.getElementById("modal-content");
       
       row.addEventListener("click", function(){
+        var first_name, last_name, uin;
         for(var i = 0; i < data[0].length-1; i++){
           var h = document.createElement("H3");
           h.style.textAlign = "center";
@@ -66,9 +67,21 @@
           h.appendChild(t);
           modal_content.appendChild(h);
           
+          if(data_header[i].includes("first") || data_header[i].includes("First") || data_header[i].includes("FIRST")){
+            first_name = rows[i];
+          }
+          
+          if(data_header[i].includes("last") || data_header[i].includes("Last") || data_header[i].includes("LAST")){
+            last_name = rows[i];
+          }
+          
+          if(data_header[i].includes("uin") || data_header[i].includes("Uin") || data_header[i].includes("UIN")){
+            uin = rows[i];
+          }
+          
         }
         
-        google.script.run.withSuccessHandler(onSuccess).is_folder_exist(rows[0], rows[1], rows[2]);
+        google.script.run.withSuccessHandler(onSuccess).is_folder_exist(first_name, last_name, uin);
 
         var btn = document.createElement("BUTTON");
         btn.innerHTML = "Edit";
@@ -93,8 +106,13 @@
       
       for(var i = 0; i < data[0].length; i++){
         var table_data = document.createElement("td");
-        if(possiblepdf.includes(data_header[i]) && rows[i]!="NA"){
-          table_data.innerHTML = '<a href="' + rows[i] + '">' + "Link" + '</a>';
+        if(possiblepdf.includes(data_header[i])){
+          if(rows[i] == "" || rows[i] == " "){
+            table_data.innerHTML = "no links to folder";
+          }
+          else{
+            table_data.innerHTML = '<a href="' + rows[i] + '">' + "Link to folder" + '</a>';
+          }
         }
         else{
           table_data.textContent = rows[i];
@@ -115,17 +133,45 @@
       var button = document.createElement("button");
       button.innerHTML = "add this student's folder";
       
-      var group = modal_content.getElementsByTagName("H3")[0];
-      var first_name = String(group.innerHTML).split(":   ")[1];
-      var group = modal_content.getElementsByTagName("H3")[1];
-      var last_name = String(group.innerHTML).split(":   ")[1];
-      var group = modal_content.getElementsByTagName("H3")[2];
-      var uin = String(group.innerHTML).split(":   ")[1];
+//      var group = modal_content.getElementsByTagName("H3")[0];
+//      var first_name = String(group.innerHTML).split(":   ")[1];
+//      
+//      var group = modal_content.getElementsByTagName("H3")[1];
+//      var last_name = String(group.innerHTML).split(":   ")[1];
+//      
+//      var group = modal_content.getElementsByTagName("H3")[2];
+//      var uin = String(group.innerHTML).split(":   ")[1];
+
+      var first_name, last_name, uin;
+      
+      
+      
+      console.log(modal_content.getElementsByTagName("H3").length);
+      
+      for(var i = 0; i < modal_content.getElementsByTagName("H3").length; i++){
+        var group = modal_content.getElementsByTagName("H3")[i];
+        var header_name = String(group.innerHTML).split(":   ")[0];
+        var header_item = String(group.innerHTML).split(":   ")[1];
+        
+        if(header_name.includes("first") || header_name.includes("First") || header_name.includes("FIRST")){
+          first_name = header_item;
+        }
+          
+        if(header_name.includes("last") || header_name.includes("Last") || header_name.includes("LAST")){
+          last_name = header_item;
+        }
+          
+        if(header_name.includes("uin") || header_name.includes("Uin") || header_name.includes("UIN")){
+          uin = header_item;
+        }
+        
+      }
       
       var supposed_name = first_name + '_' + last_name + '_' + uin;
 
       button.onclick = function(){
-        google.script.run.create_folder(first_name, last_name, uin);
+        google.script.run.all(first_name, last_name, uin);
+//        google.script.run.give_folder_and_link_to_a_student(first_name, last_name, uin);
       }
 
       modal_content.appendChild(button);
