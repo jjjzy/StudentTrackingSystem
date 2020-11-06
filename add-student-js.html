@@ -17,16 +17,16 @@
 //    google.script.run.withSuccessHandler(add_students).getTableHeader("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0", 0);
 //  }
   
-  function add_students(data_header){
+  function add_students(data){
     var input_data = document.getElementById("add_form").getElementsByTagName("input");
   
   
 //    console.log(input_data.length);
     
-    var data = [];
+    var input_list = [];
     
     for(var i = 0; i < input_data.length; i++){
-      data[i] = input_data[i].value;
+      input_list[i] = input_data[i].value;
     }
   
   
@@ -52,24 +52,34 @@
 //
 
 
-    var first_name, last_name, UIN;
+    var first_name, last_name, UIN, uin_index;
     
     for(var i = 0; i < input_data.length; i++){
 //      data[i] = input_data[i].value;
-      if(String(data_header[i]).includes("First") || (String(data_header[i]).includes("first")) || (String(data_header[i]).includes("FIRST"))){
-        first_name = input_data[i].value
+      if(String(data[0][i]).includes("First") || (String(data[0][i]).includes("first")) || (String(data[0][i]).includes("FIRST"))){
+        first_name = input_data[i].value;
       }
       
-      if(String(data_header[i]).includes("Last") || (String(data_header[i]).includes("last")) || (String(data_header[i]).includes("LAST"))){
-        last_name = input_data[i].value
+      if(String(data[0][i]).includes("Last") || (String(data[0][i]).includes("last")) || (String(data[0][i]).includes("LAST"))){
+        last_name = input_data[i].value;
       }
       
-      if(String(data_header[i]).includes("uin") || (String(data_header[i]).includes("Uin")) || (String(data_header[i]).includes("UIN"))){
-        UIN = input_data[i].value
+      if(String(data[0][i]).includes("uin") || (String(data[0][i]).includes("Uin")) || (String(data[0][i]).includes("UIN"))){
+        UIN = input_data[i].value;
+        uin_index = i;
       }
     }
     
-    google.script.run.add_student_and_append_link(data, first_name, last_name, UIN);
+    for(var i = 0; i < data.length; i++){
+      if(data[i][uin_index] == input_list[uin_index]){
+        console.log("cant create");
+        alert("cant create because uin already exists");
+        closeForm();
+        return;
+      }
+    }
+    
+    google.script.run.add_student_and_append_link(input_list, first_name, last_name, UIN);
     
 //    console.log(first_name + last_name + UIN);
     
@@ -133,7 +143,7 @@
     add_btn.setAttribute("type", "button");
 //    add_btn.setAttribute("onclick", "add_a_student()");
     add_btn.addEventListener("click", function(){
-      google.script.run.withSuccessHandler(add_students).getTableHeader("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0", 0);
+      google.script.run.withSuccessHandler(add_students).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0", 0);
     });
     var t = document.createTextNode("add a student");
     add_btn.appendChild(t);
