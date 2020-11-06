@@ -4,14 +4,12 @@
   }
   
   
-  var datax;
-  var link_index;
-  var first_name_index, last_name_index, uin_index;
-  var j;
+//  var datax;
+//  var link_index;
+//  var first_name_index, last_name_index, uin_index;
+//  var j;
   
   function give_students_who_doesnt_have_folder_folder(data){
-    datax = data;
-//  console.log("inside");
     var link_index = data[0].length - 1;
     var first_name_index, last_name_index, uin_index;
     
@@ -33,38 +31,21 @@
     
     for(var i = 0; i < data.length; i++){
       if(data[i][link_index] == " " || data[i][link_index] == ""){
-        console.log(i);
-//        google.script.run.create_folder(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
-//        
-//        
-//        
-//        google.script.run.give_folder_and_link_to_a_student(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
-
-//        google.script.run.alll(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
-//        await sleep(1000)
-        google.script.run.withSuccessHandler(function(folder_exist){
-          while(folder_exist == false){
-            google.script.run.alll(datax[j][first_name_index], datax[j][last_name_index], datax[j][uin_index]);
-          }
-  }).is_folder_exist(datax[j][first_name_index], datax[j][last_name_index], datax[j][uin_index]);
-        
-        
-//        google.script.run.withSuccessHandler(function(folder_exist){
-//          while(!folder_exist){
-//            
-//          }
-//        }).is_folder_exist(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
+        console.log(data[i][first_name_index] + data[i][last_name_index] + data[i][uin_index]);
+        google.script.run.alll(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
       }
     }
   }
   
+  var j = 0;
+  
   function temp(data){
     datax = data;
 //  console.log("inside");
-    link_index = data[0].length - 1;
-    first_name_index, last_name_index, uin_index;
+    var link_index = data[0].length - 1;
+    var first_name_index, last_name_index, uin_index;
     
-    for(var j = 0; i < data[0].length; i++){
+    for(var i = 0; i < data[0].length; i++){
       if(data[0][i].includes("First") || data[0][i].includes("first") || data[0][i].includes("FIRST")){
         first_name_index = i;
       }
@@ -80,19 +61,75 @@
     
     console.log(link_index);
     
-    for(var i = 0; i < data.length; i++){
-      if(data[i][link_index] == " " || data[i][link_index] == ""){
-//        google.script.run.alll(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
+//    for(var i = 0; i < data.length; i++){
+//      if(data[i][link_index] == " " || data[i][link_index] == ""){
+////        google.script.run.alll(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
+//
+//        google.script.run.withSuccessHandler(function(folder_exist){
+//          while(folder_exist == false){
+//            google.script.run.alll(datax[j][first_name_index], datax[j][last_name_index], datax[j][uin_index]);
+//          }
+//  }).is_folder_exist(datax[j][first_name_index], datax[j][last_name_index], datax[j][uin_index]);
+//
+//      }
+//    }
 
-        google.script.run.withSuccessHandler(function(folder_exist){
-          while(folder_exist == false){
-            google.script.run.alll(datax[j][first_name_index], datax[j][last_name_index], datax[j][uin_index]);
-          }
-  }).is_folder_exist(datax[j][first_name_index], datax[j][last_name_index], datax[j][uin_index]);
+//    if(data[1][link_index] == " " || data[1][link_index] == ""){
+//      console.log("empty");
+//    }
+//    else{
+//      console.log("not empty");
+//    }
+//    
+    while(j >= 0 && j < data.length){
+//      console.log(j);
+      if(data[j][link_index] == " " || data[j][link_index] == ""){
+        console.log(j + " index doesn't have folder link");
+        google.script.run.alll(data[j][first_name_index], data[j][last_name_index], data[j][uin_index]);
+        j++;
+        var done = true;
+//        while(done){
+//          console.log("dsfgdf");
+//          google.script.run.withSuccessHandler(function(res){
+//            console.log("printing res " + res);
+//            if(res == true){
+//              j++;
+//              done = false;
+//            }
+////            else{
+////              setTimeout(pollDOM, 300);
+////            }
+//          }).is_folder_exist(data[j][first_name_index], data[j][last_name_index], data[j][uin_index]);
+          
+//          setTimeout(pollDOM, 300);
+//        }
+        
+
+//        google.script.run.withSuccessHandler(function(folder_exist){
+//          while(folder_exist == false){
+//            google.script.run.alll(datax[j][first_name_index], datax[j][last_name_index], datax[j][uin_index]);
+//          }
+//  }).is_folder_exist(datax[j][first_name_index], datax[j][last_name_index], datax[j][uin_index]);
 
       }
+      else{
+        j++;
+      }
+      
     }
+//    setTimeout(pollDOM, 300);
+  }
   
+  
+  
+  function testt(){
+    google.script.run.withSuccessHandler(function(res){
+            console.log("printing res" + res);
+//            if(res == true){
+//              j++;
+//              done = false;
+//            }
+          }).is_folder_exist("tom", "jerry", "1");
   }
   
   

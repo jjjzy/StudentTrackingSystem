@@ -228,9 +228,10 @@ function add_student_and_append_link(data, first_name, last_name, uin){
 
 
 function alll(first_name, last_name, uin){
-  var folders = DriveApp.getFolderById("1dyXUX5S09iN60V_qt-l8iFVcsTmFlXtU");
+//  Utilities.sleep(100000);
+  var folder = DriveApp.getFolderById("1dyXUX5S09iN60V_qt-l8iFVcsTmFlXtU");
   var assumed_folder_name = first_name + '_' + last_name + '_' + uin;
-  var newFolder = folders.createFolder(assumed_folder_name);
+  folder.createFolder(assumed_folder_name);
   
   var folders = DriveApp.getFolderById("1dyXUX5S09iN60V_qt-l8iFVcsTmFlXtU").getFolders();
 
@@ -281,15 +282,43 @@ function alll(first_name, last_name, uin){
 //  }
 //  return false;
   
-  while(is_folder_exist(first_name, last_name, uin) == false && (data[i][link_index] != " " || data[i][link_index] != "")){
-    
-    Utilities.sleep(1000000);
-  }
+//  while(is_folder_exist(first_name, last_name, uin) == false && (data[i][link_index] != " " || data[i][link_index] != "")){
+//    
+////    Utilities.sleep(1000000);
+//  }
   
   
 }
 
+function test(first_name, last_name, uin){
+  var data = importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1cZ1w8UhgEZ36iztyYdYEU6c6VVQJHMi9cnIb7Uq3eoU/edit#gid=0", 0);
+  var link_index = data[0].length - 1;
+    var first_name_index, last_name_index, uin_index;
+    
+    for(var i = 0; i < data[0].length; i++){
+      if(data[0][i].includes("First") || data[0][i].includes("first") || data[0][i].includes("FIRST")){
+        first_name_index = i;
+      }
+      
+      if(data[0][i].includes("Last") || data[0][i].includes("last") || data[0][i].includes("LAST")){
+        last_name_index = i;
+      }
+      
+      if(data[0][i].includes("uin") || data[0][i].includes("Uin") || data[0][i].includes("UIN")){
+        uin_index = i;
+      }
+    }
+    
+    console.log(link_index);
+    
+    for(var i = 0; i < data.length; i++){
+      if(data[i][link_index] == " " || data[i][link_index] == ""){
+//        console.log(data[i][first_name_index] + data[i][last_name_index] + data[i][uin_index]);
+        alll(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
+      }
+    }
 
+}
 
 
 
