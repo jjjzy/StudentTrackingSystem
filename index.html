@@ -27,14 +27,16 @@
       <div id="myModal" class="modal">
         <div class="modal-content" id="modal-content">
           <span class="close">&times;</span>
+          <div id="modal-real-content">
           
+          </div>
         </div>
       </div>
     </div>
     <a href="#" class="previous" onclick="give_folders()"> f&laquo;</a>
     <a href="#" class="next">Next &raquo;</a>
     
-    <button class="open-button" onclick="openForm()">Add a student</button>
+    <button class="open-button" onclick="openForm()" id=“add_student_btn”>Add a student</button>
     
     <button onclick="give_folders()">give folders</button>
     
@@ -49,6 +51,7 @@
     <?!= include('search-js'); ?>
     <?!= include('add-student-js'); ?>
     <?!= include('folder-js'); ?>
+    <?!= include('edit-student-js'); ?>
   </body>
 </html>
 

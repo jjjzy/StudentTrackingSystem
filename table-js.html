@@ -56,7 +56,7 @@
 
       var modal = document.getElementById("myModal");
       
-      var modal_content = document.getElementById("modal-content");
+      var modal_content = document.getElementById("modal-real-content");
       
       row.addEventListener("click", function(){
         var first_name, last_name, uin;
@@ -83,10 +83,11 @@
         
         google.script.run.withSuccessHandler(onSuccess).is_folder_exist(first_name, last_name, uin);
 
-        var btn = document.createElement("BUTTON");
-        btn.innerHTML = "Edit";
-        btn.style.width = '200px';
-        modal_content.appendChild(btn);
+//        var btn = document.createElement("BUTTON");
+//        btn.setAttribute("id", "edit_btn");
+//        btn.innerHTML = "Edit";
+//        btn.style.width = '200px';
+//        modal_content.appendChild(btn);
         
         modal.style.display = "block";
       });
@@ -128,7 +129,7 @@
   }
   
   function onSuccess(exist){
-    var modal_content = document.getElementById("modal-content");
+    var modal_content = document.getElementById("modal-real-content");
     if(exist == false){
       var button = document.createElement("button");
       button.innerHTML = "add this student's folder";

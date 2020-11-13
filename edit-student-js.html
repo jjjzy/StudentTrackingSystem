@@ -1,0 +1,13 @@
+<script>
+  var modal_content = document.getElementById("modal-content");
+  var btn = document.createElement("button");
+  btn.setAttribute("id", "edit_btn");
+  btn.innerHTML = "Edit";
+  btn.style.width = '200px';
+  modal_content.appendChild(btn);
+  
+  btn.addEventListener("click", function(){
+    openForm();
+    console.log(document.getElementById("add_student_btn").value);
+  });
+</script>
