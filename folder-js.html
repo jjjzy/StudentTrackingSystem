@@ -1,6 +1,7 @@
 <script>
   function give_folders(){
-    google.script.run.withSuccessHandler(give_students_who_doesnt_have_folder_folder).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
+//    google.script.run.withSuccessHandler(give_students_who_doesnt_have_folder_folder).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
+    google.script.run.test();
   }
   
   
@@ -27,7 +28,7 @@
       }
     }
     
-    console.log(link_index);
+//    console.log(link_index);
     
 //    for(var i = 0; i < data.length; i++){
 //      if(data[i][link_index] == " " || data[i][link_index] == ""){
@@ -36,7 +37,9 @@
 //      }
 //    }
 
-    google.script.run.test(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
+//    console.log(data[i][first_name_index] + data[i][last_name_index] + data[i][uin_index]);
+
+//    google.script.run.test(data[i][first_name_index], data[i][last_name_index], data[i][uin_index]);
   }
   
   var j = 0;

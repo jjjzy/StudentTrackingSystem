@@ -6,8 +6,116 @@
   btn.style.width = '200px';
   modal_content.appendChild(btn);
   
+  var edit_student_index = 0;
+  
+  function generate_edit_form(data){
+    var add_form = document.getElementById("add_form2");
+    
+    var modal_content = document.getElementById("modal-real-content");
+    
+    var data_item = [];
+    
+    var uin, uin_index;
+    
+//    var edit_student_index;
+    
+    for(var i = 0; i < modal_content.getElementsByTagName("H3").length; i++){
+        var group = modal_content.getElementsByTagName("H3")[i];
+        var header_name = String(group.innerHTML).split(":   ")[0];
+        var header_item = String(group.innerHTML).split(":   ")[1];
+        
+        if(header_name.includes("UIN") || header_name.includes("Uin") || header_name.includes("uin")){
+          uin = header_item;
+          uin_index = i;
+        }
+        
+        data_item[i] = header_item;
+    }
+    
+    for(var i = 0; i < data.length; i++){
+      if(data[i][uin_index] == uin){
+        edit_student_index = i;
+      }
+    }
+    
+    for(var i = 0; i < data[0].length - 1; i++){
+//      <label for="uin"><b>UIN</b></label>
+//      <input type="text" placeholder="Enter UIN" id="uin" required>
+      var input_label = document.createElement("label");
+      var t = document.createTextNode(data[0][i]);
+      input_label.appendChild(t);
+      add_form.appendChild(input_label);
+      
+      var input = document.createElement("input");
+      var place_holder = "Enter " + data[0][i];
+      input.setAttribute("placeholder", place_holder);
+      input.setAttribute("type", "text");
+      input.setAttribute("id", data[0][i]);
+      input.setAttribute("value", data_item[i]);
+      add_form.appendChild(input);
+    }
+    
+    //    document.getElementById("add_form2").appendChild(document.createTextNode("add a student"));
+    var add_btn = document.createElement("button");
+    add_btn.setAttribute("class", "btn");
+    add_btn.setAttribute("id", "add");
+    add_btn.setAttribute("type", "button");
+//    add_btn.setAttribute("value", "button");
+//    add_btn.setAttribute("onclick", "add_a_student()");
+    add_btn.addEventListener("click", function(){
+//      google.script.run.withSuccessHandler(add_students).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
+      var input_data = document.getElementById("add_form2").getElementsByTagName("input");
+    
+      var input_list = [];
+    
+      for(var i = 0; i < input_data.length; i++){
+        input_list[i] = input_data[i].value;
+      }
+      
+      google.script.run.edit_specific_row(input_list, edit_student_index);
+      
+      
+      
+    });
+    var t = document.createTextNode("edit this student");
+    add_btn.appendChild(t);
+//    add_form.value = "add a student";
+    document.getElementById("add_form2").appendChild(add_btn);
+    
+    var close_btn = document.createElement("button");
+    close_btn.setAttribute("class", "btn cancel");
+    close_btn.setAttribute("type", "button");
+//    close_btn.setAttribute("onclick", "closeForm()");
+    close_btn.addEventListener("click", function(){
+      document.getElementById("add_form2").innerHTML = "";
+      document.getElementById("myForm2").style.display = "none";
+    });
+    t = document.createTextNode("Close");
+    close_btn.appendChild(t);
+    document.getElementById("add_form2").appendChild(close_btn);
+  }
+  
+  
   btn.addEventListener("click", function(){
-    openForm();
-    console.log(document.getElementById("add_student_btn").value);
+    google.script.run.withSuccessHandler(generate_edit_form).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
+    document.getElementById("myForm2").style.display = "block";
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
   });
+  
+  
+  
 </script>

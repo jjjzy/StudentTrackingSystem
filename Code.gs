@@ -300,7 +300,7 @@ function alll(first_name, last_name, uin){
   
 }
 
-function test(first_name, last_name, uin){
+function test(){
   var data = importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
   var link_index = data[0].length - 1;
     var first_name_index, last_name_index, uin_index;
@@ -328,6 +328,66 @@ function test(first_name, last_name, uin){
       }
     }
 
+}
+
+function edit_specific_row(input_row, index){
+  
+  var data = importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
+  
+  var first_name_index, last_name_index, uin_index;
+  
+  for(var i = 0; i < data[0].length; i++){
+    if(data[0][i].includes("First") || data[0][i].includes("first") || data[0][i].includes("FIRST")){
+      first_name_index = i;
+    }
+      
+    if(data[0][i].includes("Last") || data[0][i].includes("last") || data[0][i].includes("LAST")){
+      last_name_index = i;
+    }
+      
+    if(data[0][i].includes("uin") || data[0][i].includes("Uin") || data[0][i].includes("UIN")){
+      uin_index = i;
+    }
+  }
+  
+  
+  
+  var old_folder_name = data[index][first_name_index] + '_' + data[index][last_name_index] + '_' + data[index][uin_index];
+  
+  var new_folder_name = input_row[first_name_index] + '_' + input_row[last_name_index] + '_' + input_row[uin_index];
+  
+  
+  var folders = DriveApp.getFolderById("1NB26J5C-iLoyygB17APYlc0PLn9sQGIJ").getFolders();
+
+//  var assumed_folder_name = first_name + '_' + last_name + '_' + uin;
+
+  while (folders.hasNext()) {
+    var folder = folders.next();
+    if(old_folder_name == folder.getName()) {
+//      Logger.log(folder.getUrl());
+//      return folder.getUrl();
+      folder.setName(new_folder_name)
+    }
+  }
+//  return null;
+  
+  
+      
+  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0").getSheets()[0];
+  
+  var rows = ss.getLastRow();
+  var cols = ss.getLastColumn();
+  
+  for(var i = 0; i < rows; i++){
+    for(var j = 0; j < cols - 1; j++){
+      ss.getRange(index + 1, j + 1).setValue(input_row[j]);
+    }
+  }
+
+  Logger.log(ss.getRange(3, 1).getValue())
+  
+  
+  
 }
 
 

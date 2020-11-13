@@ -6,6 +6,7 @@
 
 
   function openForm() {
+//    google.script.run.withSuccessHandler(generate_add_student_form).getTableHeader("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
     document.getElementById("myForm").style.display = "block";
   }
 
@@ -140,13 +141,16 @@
 
     var add_btn = document.createElement("button");
     add_btn.setAttribute("class", "btn");
+    add_btn.setAttribute("id", "add");
     add_btn.setAttribute("type", "button");
+//    add_btn.setAttribute("value", "button");
 //    add_btn.setAttribute("onclick", "add_a_student()");
     add_btn.addEventListener("click", function(){
       google.script.run.withSuccessHandler(add_students).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
     });
     var t = document.createTextNode("add a student");
     add_btn.appendChild(t);
+//    add_form.value = "add a student";
     add_form.appendChild(add_btn);
     
     var close_btn = document.createElement("button");
