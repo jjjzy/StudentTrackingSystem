@@ -72,7 +72,7 @@
         input_list[i] = input_data[i].value;
       }
       
-      google.script.run.edit_specific_row(input_list, edit_student_index);
+      google.script.run.edit_specific_row(input_list, edit_student_index, page);
       
       
       
@@ -97,25 +97,59 @@
   
   
   btn.addEventListener("click", function(){
-    google.script.run.withSuccessHandler(generate_edit_form).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
+    google.script.run.withSuccessHandler(generate_edit_form).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", page);
     document.getElementById("myForm2").style.display = "block";
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
   });
   
+   function movestudent(data){
+    
+    var modal_content = document.getElementById("modal-real-content");
+    var targetstudent = 0
+    
+    for(var i = 0; i < modal_content.getElementsByTagName("H3").length; i++){
+        var group = modal_content.getElementsByTagName("H3")[i];
+        var header_name = String(group.innerHTML).split(":   ")[0];
+        var header_item = String(group.innerHTML).split(":   ")[1];
+        
+        if(header_name.includes("UIN") || header_name.includes("Uin") || header_name.includes("uin")){
+          uin = header_item;
+          uin_index = i;
+        }
+        
+    }
+    var targetfound=0;
+    for(var i = 0; i < data.length; i++){
+      if(data[i][uin_index] == uin){
+        targetstudent = i;
+        targetfound=1;
+      }
+    }
+    if (targetfound){
+      google.script.run.achievethisstudent(data[targetstudent],targetstudent+1);
+
+      alert("student archived");
+    }
+    else{
+      alert("student not found");
+    }
+  } 
   
+  var achibtn = document.createElement("button");
+  achibtn.setAttribute("id", "achieve_btn");
+  achibtn.innerHTML = "archive this student";
+  achibtn.style.width = '200px';
+  modal_content.appendChild(achibtn);
+  achibtn.addEventListener("click", function(){
+    if (page==0){
+      google.script.run.withSuccessHandler(movestudent).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", page);
+
+    }
+    else{
+      alert("you can't archive an archived student");
+    } 
+
+  });
+
   
 </script>

@@ -1,9 +1,9 @@
 <script>
   var url = "https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0";
-  var index = 0;
+  var page = 0;
   
   document.addEventListener("DOMContentLoaded", function(){
-    google.script.run.withSuccessHandler(generate_table).importCSVFromGoogleDrive(url, index);
+    google.script.run.withSuccessHandler(generate_table).importCSVFromGoogleDrive(url, page);
   });
   
   var switch_button = document.getElementById("switch_table");
@@ -14,13 +14,13 @@
 //  console.log(names[1]);
   switch_button.addEventListener("click", function(){
     document.getElementById("table").innerHTML = "";
-    index += 1;
-    if(index >= 2){
-      index = 0;
+    page += 1;
+    if(page >= 2){
+      page = 0;
     }
-    google.script.run.withSuccessHandler(generate_table).importCSVFromGoogleDrive(url, index);
+    google.script.run.withSuccessHandler(generate_table).importCSVFromGoogleDrive(url, page);
   });
-
+  
   function generate_table(data){
     var table_div = document.getElementById("tb");
     

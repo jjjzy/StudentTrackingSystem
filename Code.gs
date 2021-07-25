@@ -330,9 +330,9 @@ function test(){
 
 }
 
-function edit_specific_row(input_row, index){
+function edit_specific_row(input_row, index, page){
   
-  var data = importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
+  var data = importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", page);
   
   var first_name_index, last_name_index, uin_index;
   
@@ -372,9 +372,12 @@ function edit_specific_row(input_row, index){
 //  return null;
   
   
-      
-  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0").getSheets()[0];
-  
+  if (page){
+    var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0").getSheets()[1];
+  }
+  else{
+    var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0").getSheets()[0];
+  }
   var rows = ss.getLastRow();
   var cols = ss.getLastColumn();
   
@@ -386,13 +389,14 @@ function edit_specific_row(input_row, index){
 
   Logger.log(ss.getRange(3, 1).getValue())
   
-  
-  
 }
 
-
-
-
+function achievethisstudent(header_item,index){
+  var currentstudent = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0").getSheets()[0];
+  var achievedstudent = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0").getSheets()[1];
+  achievedstudent.appendRow(header_item);
+  currentstudent.deleteRow(index);
+}
 
 
 
