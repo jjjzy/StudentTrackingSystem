@@ -1,14 +1,7 @@
-<script>
-  var tracking_sheet = "https://docs.google.com/spreadsheets/d/1DntV71tq3chViETBZbj-jRv-ouQTEMbDW-toU1QSOwk/edit#gid=0"
-  
-  
-  // document.addEventListener("DOMContentLoaded", function(){
-  //   google.script.run.withSuccessHandler(generate_add_student_form).getTableHeader(tracking_sheet, 0);
-  // });
-
+<script>  
 
   function openForm() {
-    google.script.run.withSuccessHandler(generate_add_student_form).getTableHeader(tracking_sheet, 0);
+    google.script.run.withSuccessHandler(generate_add_student_form).getTableHeader(0);
     document.getElementById("myForm").style.display = "block";
   }
 
@@ -55,7 +48,6 @@
         uin_index = i;
       }
     }
-    console.log("UIN"+UIN+"abc");
     if (UIN == "" || first_name== ""|| last_name== ""){
         alert("UIN/First Name/ Last Name cannot be blank");
     }
@@ -107,7 +99,7 @@
     add_btn.setAttribute("type", "button");
 
     add_btn.addEventListener("click", function(){
-      google.script.run.withSuccessHandler(add_students).importCSVFromGoogleDrive(tracking_sheet, 0);
+      google.script.run.withSuccessHandler(add_students).importCSVFromGoogleDrive(0);
     });
     var t = document.createTextNode("Add");
     add_btn.appendChild(t);

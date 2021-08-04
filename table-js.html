@@ -1,9 +1,8 @@
 <script>
-  var tracking_sheet = "https://docs.google.com/spreadsheets/d/1DntV71tq3chViETBZbj-jRv-ouQTEMbDW-toU1QSOwk/edit#gid=0";
   var page = 0;
   
   document.addEventListener("DOMContentLoaded", function(){
-    google.script.run.withSuccessHandler(generate_table).importCSVFromGoogleDrive(tracking_sheet, page);
+    google.script.run.withSuccessHandler(generate_table).importCSVFromGoogleDrive(page);
   });
   
   var switch_button = document.getElementById("switch_table");
@@ -14,7 +13,7 @@
     if(page >= 2){
       page = 0;
     }
-    google.script.run.withSuccessHandler(generate_table).importCSVFromGoogleDrive(tracking_sheet, page);
+    google.script.run.withSuccessHandler(generate_table).importCSVFromGoogleDrive(page);
   });
   
   function generate_table(data){

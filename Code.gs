@@ -6,8 +6,8 @@ function doGet(request) {
       .evaluate();
 }
 
-function importCSVFromGoogleDrive(url, index) {
-  var ss = SpreadsheetApp.openByUrl(url).getSheets()[index];
+function importCSVFromGoogleDrive(index) {
+  var ss = SpreadsheetApp.openByUrl(tracking_sheet).getSheets()[index];
 
   var rows = ss.getLastRow();
   var cols = ss.getLastColumn();
@@ -120,7 +120,7 @@ function alll(folder_name, uin){
 }
 
 function test(){
-  var data = importCSVFromGoogleDrive(tracking_sheet, 0);
+  var data = importCSVFromGoogleDrive(0);
   var link_index = data[0].length - 1;
     var first_name_index, last_name_index, uin_index;
     
@@ -152,7 +152,7 @@ function test(){
 
 function edit_specific_row(input_row, index, page){
   
-  var data = importCSVFromGoogleDrive(tracking_sheet, page);
+  var data = importCSVFromGoogleDrive(page);
   
   var first_name_index, last_name_index, uin_index;
   
