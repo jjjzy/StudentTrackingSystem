@@ -29,15 +29,20 @@ popup dialog */
 .modal {
   display: none; /* Hidden by default */
   position: center; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 1 !important; /* Sit on top */
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal:nth-of-type(even) {
+    z-index: 3 !important;
+}
+.modal-backdrop.show:nth-of-type(even) {
+    z-index: 2 !important;
 }
 
 /* Modal Content */
@@ -46,14 +51,38 @@ popup dialog */
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
+  position: center;
 }
 
+.notes-content  {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  position: center;
+}
+
+.notes_text{
+  resize: none;
+  outline: none;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  height: 250px;
+  margin: -10px;
+}
+
+.modal-table{
+  font-weight: bold;
+}
 .close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
+  text-align: right;
 }
 
 .close:hover,
@@ -137,7 +166,57 @@ popup dialog */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
 }
+
+.modal-content .btn:hover {
+  opacity: 0.8;
+}
 /*------------------------------------------------------------------------------------------------*/
+.modal-content .btn {
+  text-align: center;
+  background-color: #555;
+  color: white;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  width: 200px;
+  height: 50px;
+  margin: auto;
+  display:block;
+  margin-top: 20px;
+  position: center;
+}
+
+.notes-content .btn{
+  text-align: center;
+  background-color: #555;
+  color: white;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  width: 150px;
+  height: 40px;
+  display:inline-block;
+}
+
+
+.modal-real-content{
+  position: center;
+  margin: auto;
+}
+
+.modal-real-content .btn{
+  text-align: center;
+  background-color: #555;
+  color: white;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  width: 200px;
+  height: 50px;
+  margin: auto;
+  display: block;
+  margin-top: 20px;
+}
 
 /*add student button*/
 .open-button {

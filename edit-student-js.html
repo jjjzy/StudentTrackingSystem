@@ -1,9 +1,11 @@
 <script>
+  var tracking_sheet = "https://docs.google.com/spreadsheets/d/1DntV71tq3chViETBZbj-jRv-ouQTEMbDW-toU1QSOwk/edit#gid=0"
+
   var modal_content = document.getElementById("modal-content");
   var btn = document.createElement("button");
   btn.setAttribute("id", "edit_btn");
+  btn.setAttribute("class", "btn");
   btn.innerHTML = "Edit";
-  btn.style.width = '200px';
   modal_content.appendChild(btn);
   
   var edit_student_index = 0;
@@ -11,7 +13,7 @@
   function generate_edit_form(data){
     var add_form = document.getElementById("add_form2");
     
-    var modal_content = document.getElementById("modal-real-content");
+    var modal_real_content = document.getElementById("modal-real-content");
     
     var data_item = [];
     
@@ -19,17 +21,20 @@
     
 //    var edit_student_index;
     
-    for(var i = 0; i < modal_content.getElementsByTagName("H3").length; i++){
-        var group = modal_content.getElementsByTagName("H3")[i];
-        var header_name = String(group.innerHTML).split(":   ")[0];
-        var header_item = String(group.innerHTML).split(":   ")[1];
-        
-        if(header_name.includes("UIN") || header_name.includes("Uin") || header_name.includes("uin")){
+    var oTable = modal_real_content.getElementsByTagName("table")[0];
+    var rowLength = oTable.rows.length;
+
+    for (i = 0; i < rowLength; i++){
+      //gets cells of current row  
+      var oCells = oTable.rows.item(i).cells;
+      //gets amount of cells of current row
+      var header_name = oCells.item(0).innerHTML;
+      var header_item = oCells.item(2).innerHTML;
+      if(header_name.includes("UIN") || header_name.includes("Uin") || header_name.includes("uin")){
           uin = header_item;
           uin_index = i;
         }
-        
-        data_item[i] = header_item;
+      data_item[i] = header_item;
     }
     
     for(var i = 0; i < data.length; i++){
@@ -37,6 +42,8 @@
         edit_student_index = i;
       }
     }
+
+    
     
     for(var i = 0; i < data[0].length - 1; i++){
 //      <label for="uin"><b>UIN</b></label>
@@ -60,64 +67,70 @@
     add_btn.setAttribute("class", "btn");
     add_btn.setAttribute("id", "add");
     add_btn.setAttribute("type", "button");
-//    add_btn.setAttribute("value", "button");
-//    add_btn.setAttribute("onclick", "add_a_student()");
     add_btn.addEventListener("click", function(){
-//      google.script.run.withSuccessHandler(add_students).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", 0);
       var input_data = document.getElementById("add_form2").getElementsByTagName("input");
     
+      document.getElementById("myForm2").style.display = "none";
+      
       var input_list = [];
     
       for(var i = 0; i < input_data.length; i++){
         input_list[i] = input_data[i].value;
       }
-      
-      google.script.run.edit_specific_row(input_list, edit_student_index, page);
-      
-      
-      
-    });
-    var t = document.createTextNode("edit this student");
+      google.script.run.withSuccessHandler(function(){
+        document.getElementById("add_form2").innerHTML = "";
+        var oTable = document.getElementById("table");
+        var oCells = oTable.rows.item(edit_student_index).cells;
+        console.log("length   " +oCells.length);
+        for (var i=0;i<oCells.length-1;i++){
+          oCells.item(i).innerHTML = input_list[i];
+        }
+        alert("Data Edited!!");
+        }).edit_specific_row(input_list, edit_student_index, 0);
+      });
+    
+    var t = document.createTextNode("Save Edits");
     add_btn.appendChild(t);
-//    add_form.value = "add a student";
     document.getElementById("add_form2").appendChild(add_btn);
     
     var close_btn = document.createElement("button");
     close_btn.setAttribute("class", "btn cancel");
     close_btn.setAttribute("type", "button");
-//    close_btn.setAttribute("onclick", "closeForm()");
     close_btn.addEventListener("click", function(){
       document.getElementById("add_form2").innerHTML = "";
       document.getElementById("myForm2").style.display = "none";
     });
-    t = document.createTextNode("Close");
+    t = document.createTextNode("Cancel");
     close_btn.appendChild(t);
     document.getElementById("add_form2").appendChild(close_btn);
   }
   
   
   btn.addEventListener("click", function(){
-    google.script.run.withSuccessHandler(generate_edit_form).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", page);
+    google.script.run.withSuccessHandler(generate_edit_form).importCSVFromGoogleDrive(tracking_sheet, page);
     document.getElementById("myForm2").style.display = "block";
-
   });
   
    function movestudent(data){
     
-    var modal_content = document.getElementById("modal-real-content");
+    var modal_real_content = document.getElementById("modal-real-content");
     var targetstudent = 0
     
-    for(var i = 0; i < modal_content.getElementsByTagName("H3").length; i++){
-        var group = modal_content.getElementsByTagName("H3")[i];
-        var header_name = String(group.innerHTML).split(":   ")[0];
-        var header_item = String(group.innerHTML).split(":   ")[1];
-        
-        if(header_name.includes("UIN") || header_name.includes("Uin") || header_name.includes("uin")){
+    var oTable = modal_real_content.getElementsByTagName("table")[0];
+    var rowLength = oTable.rows.length;
+
+    for (i = 0; i < rowLength; i++){
+      //gets cells of current row  
+      var oCells = oTable.rows.item(i).cells;
+      //gets amount of cells of current row
+      var header_name = oCells.item(0).innerHTML;
+      var header_item = oCells.item(2).innerHTML;
+      if(header_name.includes("UIN") || header_name.includes("Uin") || header_name.includes("uin")){
           uin = header_item;
           uin_index = i;
         }
-        
     }
+
     var targetfound=0;
     for(var i = 0; i < data.length; i++){
       if(data[i][uin_index] == uin){
@@ -126,30 +139,220 @@
       }
     }
     if (targetfound){
-      google.script.run.achievethisstudent(data[targetstudent],targetstudent+1);
-
-      alert("student archived");
+      google.script.run.withSuccessHandler(function(){
+        alert("student archived");
+      }).archiveStudent(data[targetstudent],targetstudent+1);
     }
     else{
       alert("student not found");
     }
   } 
   
+  function getDateTime() {
+    var date = new Date();
+    var year = date.getFullYear();
+    console.log("year   "+year);
+    var month = date.getMonth() + 1;  
+    if(month.toString().length==1){
+      var month = '0'+month;
+    }
+    var day = date.getDate(); if(day.toString().length==1){var day = '0'+day;}
+    var hour = date.getHours(); if(hour.toString().length==1){var hour = '0'+hour;}
+    var minu = date.getMinutes(); if(minu.toString().length==1){var minu = '0'+minu;}
+    var seco = date.getSeconds(); if(seco.toString().length==1){var seco = '0'+seco;}
+    var dateTime = year+'/'+month+'/'+day+'_'+hour+':'+minu+':'+seco;
+    return dateTime;
+  }
+  
+  function getFolderNameComponents()
+  {
+    obj = {}
+    var uin,first_name,last_name;
+
+    var modal_real_content = document.getElementById("modal-real-content");
+    var oTable = modal_real_content.getElementsByTagName("table")[0];
+    var rowLength = oTable.rows.length;
+    for (i = 0; i < rowLength; i++){
+      //gets cells of current row  
+      var oCells = oTable.rows.item(i).cells;
+      //gets amount of cells of current row
+      var header_name = oCells.item(0).innerHTML;
+      var header_item = oCells.item(2).innerHTML;
+      if(header_name.includes("UIN") || header_name.includes("Uin") || header_name.includes("uin")){
+         uin = header_item.toString().toLowerCase();
+      }
+      if(header_name.includes("FIRST") || header_name.includes("First") || header_name.includes("first")){
+         first_name = header_item.toString().toLowerCase();
+      }
+      if(header_name.includes("LAST") || header_name.includes("Last") || header_name.includes("last")){
+         last_name = header_item.toString().toLowerCase();
+      }
+    }
+    obj.uin = uin;
+    obj.first_name = first_name;
+    obj.last_name = last_name;
+    obj.docName = getDateTime();
+    return obj;
+  }
+  
+  var add_advise_btn = document.createElement("button");
+  add_advise_btn.setAttribute("id", "advising_btn");
+  add_advise_btn.innerHTML = "Add Notes";
+  add_advise_btn.setAttribute("class", "btn");
+  add_advise_btn.style.display = "inline-block";
+  add_advise_btn.addEventListener("click", function(){
+  
+    var notes_modal = document.getElementById("notesModal");
+    var notes_content = document.getElementById("notes-content");
+    var notes_real_content = document.getElementById("notes-real-content");
+    
+    var input_label = document.createElement("label");
+    var t = document.createTextNode("Write Notes Below");
+    input_label.style.fontWeight = "bold";
+    input_label.style.display = "block";
+    input_label.appendChild(t);
+    notes_real_content.appendChild(input_label);
+    
+    var input = document.createElement("textarea");
+    var place_holder = "ADD Notes";
+    input.setAttribute("placeholder", place_holder);
+    input.setAttribute("id", "notes_text");
+    input.setAttribute("class", "notes_text");
+    input.style.display = "block";
+    notes_real_content.appendChild(input)
+    
+    
+    var save_btn = document.createElement("button");
+    save_btn.setAttribute("id", "save_notes");
+    save_btn.innerHTML = "Save";
+    save_btn.setAttribute("class", "btn");
+    save_btn.style.backgroundColor = "green";
+    save_btn.addEventListener("click", function(){
+      notes_text = document.getElementById("notes_text").value;
+      var obj = getFolderNameComponents();
+      obj.text = notes_text;
+      document.getElementById("notesModal").style.display = "none";
+      google.script.run.withSuccessHandler(function(docCreated){
+        if(docCreated){
+          document.getElementById("notes-real-content").innerHTML = "";
+          alert("New Note Created");
+        }else{
+          alert("There was some error. Student might be missing his root folder");
+        }
+        
+      }).createAdvisingDocument(obj);
+    });
+    notes_real_content.appendChild(save_btn);
+    var close_btn = document.createElement("button");
+    close_btn.setAttribute("class", "btn");
+    close_btn.setAttribute("type", "button");
+    close_btn.addEventListener("click", function(){
+      document.getElementById("notes-real-content").innerHTML = "";
+      document.getElementById("notesModal").style.display = "none";
+    });
+    t = document.createTextNode("Cancel");
+    close_btn.appendChild(t);
+    notes_real_content.appendChild(close_btn);
+    
+    var span = document.getElementsByClassName("close")[1];
+    span.onclick = function() {
+        notes_modal.style.display = "none";
+        notes_real_content.innerHTML = "";
+    }
+    notes_modal.style.display = "block";
+  });
+  
+  modal_content.appendChild(add_advise_btn);
+
+
+  var add_docs = document.createElement("button");
+  add_docs.setAttribute("id", "upload_degree_doc");
+  add_docs.innerHTML = "Add Degree Documents";
+  add_docs.setAttribute("class", "btn");
+  add_docs.addEventListener("click",function(){
+
+    var files_modal = document.getElementById("filesModal");
+    var files_content = document.getElementById("files-content");
+    var files_real_content = document.getElementById("files-real-content");
+
+    var upld_btn = document.createElement("input");
+    upld_btn.setAttribute("id", "upload_file");
+    upld_btn.setAttribute("type", "submit");
+    upld_btn.value = "Upload";
+    upld_btn.setAttribute("class", "btn");
+    upld_btn.style.backgroundColor = "green";
+    files_real_content.appendChild(upld_btn);
+
+    var close_btn = document.createElement("button");
+    close_btn.setAttribute("class", "btn");
+    close_btn.setAttribute("type", "button");
+    close_btn.addEventListener("click", function(){
+      document.getElementById("files-real-content").innerHTML = "";
+      document.getElementById('degree_doc').value = "";
+      document.getElementById('degreeDocList').value = "";
+      document.getElementById("filesModal").style.display = "none";
+    });
+    t = document.createTextNode("Cancel");
+    close_btn.appendChild(t);
+    files_real_content.appendChild(close_btn);
+    
+    var span = document.getElementsByClassName("close")[2];
+    span.onclick = function() {
+        files_modal.style.display = "none";
+        files_real_content.innerHTML = "";
+        document.getElementById('degree_doc').value = "";
+        document.getElementById('degreeDocList').value = "";
+    }
+    files_modal.style.display = "block";
+
+  })
+  modal_content.appendChild(add_docs);
+
   var achibtn = document.createElement("button");
-  achibtn.setAttribute("id", "achieve_btn");
-  achibtn.innerHTML = "archive this student";
-  achibtn.style.width = '200px';
+  achibtn.setAttribute("id", "archive_btn");
+  achibtn.innerHTML = "Archive Student";
+  achibtn.setAttribute("class", "btn");
+  achibtn.style.display = "inline-block";
   modal_content.appendChild(achibtn);
   achibtn.addEventListener("click", function(){
     if (page==0){
-      google.script.run.withSuccessHandler(movestudent).importCSVFromGoogleDrive("https://docs.google.com/spreadsheets/d/1GwEl7OViaC6z6P4Msf4mkjCr1Fv1K3NQX7O1rWwO7J0/edit#gid=0", page);
-
+      google.script.run.withSuccessHandler(movestudent).importCSVFromGoogleDrive(tracking_sheet, page);
     }
     else{
-      alert("you can't archive an archived student");
+      alert("Student already archived");
     } 
-
   });
+
+  function file_upload(){
+    var doc = document.getElementById("degree_doc").files[0];
+    var type = document.getElementById("degreeDocList").value;
+    if (doc){
+      var file, reader = new FileReader();
+      reader.onloadend = function(e) {
+        var obj = getFolderNameComponents();
+        console.log("calling upload function");
+        google.script.run.withSuccessHandler(function(docUploaded){
+          document.getElementById("filesModal").style.display = "none";
+          document.getElementById("files-real-content").innerHTML = "";
+          document.getElementById('degree_doc').value = "";
+          document.getElementById('degreeDocList').value = "";
+          if(docUploaded){
+            alert("File Uploaded");
+          }else{
+            alert("There was some error. Student might be missing his root folder");
+          }
+        }).uploadFileToDrive(e.target.result, file.name,type,obj);
+      }
+      file = doc;
+      if(file){  
+        reader.readAsDataURL(file);
+      } 
+    }
+    else{
+      alert("Please select a file to upload");
+    }
+    return false;
+  }
 
   
 </script>

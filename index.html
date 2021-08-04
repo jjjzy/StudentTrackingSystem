@@ -18,9 +18,9 @@
     <button type="button" id="switch_table">switch between current student/ former student</button>
     
     <form>
-      <input type="text" placeholder="UIN" onkeyup="seach_by_first_name()" id="FNsearch">
-      <input type="text" placeholder="firstname" onkeyup="seach_by_last_name()" id="LNsearch">
-      <input type="text" placeholder="lastname" onkeyup="seach_by_uin()" id="UINsearch">
+      <input type="text" placeholder="UIN" onkeyup="seach_by_uin()" id="UINsearch">
+      <input type="text" placeholder="First Name" onkeyup="seach_by_first_name()" id="FNsearch">
+      <input type="text" placeholder="Last Name" onkeyup="seach_by_last_name()" id="LNsearch">
     </form>
 
     <div id = "tb">
@@ -29,15 +29,38 @@
       
       <div id="myModal" class="modal">
         <div class="modal-content" id="modal-content">
-          <span class="close">&times;</span>
+          <span class="close" id="modal1_close">&times;</span>
           <div id="modal-real-content">
-          
           </div>
         </div>
       </div>
+      <div id="notesModal" class="modal" data-backdrop="static">        
+        <div id="notes-content" class = "notes-content">
+          <span class="close" id="modal2_close">&times;</span>
+          <div id="notes-real-content">
+          </div>
+        </div>
+      </div>
+      <div id="filesModal" class="modal" data-backdrop="static">        
+        <div id="files-content" class = "notes-content">
+          <span class="close" id="modal3_close">&times;</span>
+          <form onsubmit="return file_upload()">
+            <label> Document Type: </label>
+            <select id="degreeDocList" required="true"> 
+              <option value="">None</option>
+            </select>
+            <span class="helper-text" data-error="Document Type cannot be empty" data-success=""></span>
+            <input type="file" id="degree_doc" style="display:block">
+            <br><br><br>
+            <div id="files-real-content">
+            </div>
+          </form>
+        </div>
+      </div>
+      
     </div>
 
-    <button class="open-button" onclick="openForm()" id=“add”>Add a student</button>
+    <button class="open-button" onclick="openForm()" id="add">Add a student</button>
     
     <button onclick="give_folders()">create folders to all students</button>
     
@@ -57,7 +80,31 @@
       </form>
     </div>
     
-    
+    <script>
+      var sts = document.getElementById("degreeDocList");
+      var docTypes = [
+        ["Degree Plan","DP"],
+        ["LF Course Change","LF_course"],
+        ["LF Committe Change","LF_committee"],
+        ["Exception","Exception"],
+        ["Time Limit","TL"],
+        ["MDD","MDD"],
+        ["Thesis Approval Form","TH_approval"],
+        ["Proposal and Approval Form","Prop_approval"],
+        ["FE Request","FE_request"],
+        ["FE Report","FE_report"],
+        ["Prelim Checklist and Report","PrelimCNR"],
+        ["Thesis","Thesis"],
+        ];
+
+      for(i=0; i< docTypes.length;i++){
+        var optn = document.createElement("OPTION");
+        optn.text = docTypes[i][0];
+        optn.value = docTypes[i][1];
+        sts.options.add(optn);
+      }
+
+    </script>
     <?!= include('table-js'); ?>
     <?!= include('search-js'); ?>
     <?!= include('add-student-js'); ?>
